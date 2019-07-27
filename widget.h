@@ -16,8 +16,7 @@ class Widget : public QWidget
 
 private:
     QThread *thread;
-    Work1* w1;
-    Work2* w2;
+    Work* w1,*w2;
 
 public:
     explicit Widget(QWidget *parent = nullptr);

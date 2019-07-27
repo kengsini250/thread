@@ -13,10 +13,10 @@ Widget::Widget(QWidget *parent) :
 //-----------------------必须要有的-------------------------------
     thread = new QThread;
 
-    w1 = new Work1;
+    w1 = new Work;
     w1->moveToThread(thread);
 
-    w2= new Work2;
+    w2= new Work;
     w2->moveToThread(thread);
 
     connect(thread,&QThread::finished,w1,&QObject::deleteLater);
@@ -24,11 +24,11 @@ Widget::Widget(QWidget *parent) :
 //-----------------------必须要有的-------------------------------
 
 
-    connect(ui->P1,&QAbstractButton::clicked,w1,&Work1::add);
-    connect(ui->P2,&QAbstractButton::clicked,w2,&Work2::add);
+    connect(ui->P1,&QAbstractButton::clicked,w1,&Work::add);
+    connect(ui->P2,&QAbstractButton::clicked,w2,&Work::add);
 
-    connect(w1,&Work1::sendEnd,thread,&QThread::quit);
-    connect(w2,&Work2::sendEnd,thread,&QThread::quit);
+    connect(w1,&Work::sendEnd,thread,&QThread::quit);
+    connect(w2,&Work::sendEnd,thread,&QThread::quit);
 
     connect(ui->pushButton,&QAbstractButton::clicked,[=]{
         thread->start();
