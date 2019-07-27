@@ -28,9 +28,7 @@ public slots:
 private:
     Ui::Widget *ui;
 
-signals:
-    void Awork();
-    void Bwork();
+
 };
 
 #endif // WIDGET_H
