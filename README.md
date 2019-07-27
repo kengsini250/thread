@@ -1,0 +1,2 @@
+# Qt-thread
+ public QObject
