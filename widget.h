@@ -15,7 +15,7 @@ class Widget : public QWidget
     Q_OBJECT
 
 private:
-    QThread *t1,*t2;
+    QThread *thread;
     Work1* w1;
     Work2* w2;
 

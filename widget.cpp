@@ -11,33 +11,31 @@ Widget::Widget(QWidget *parent) :
     ui->pB2->setValue(0);
 
 //-----------------------必须要有的-------------------------------
-    t1 = new QThread;
+    thread = new QThread;
+
     w1 = new Work1;
-    w1->moveToThread(t1);
+    w1->moveToThread(thread);
 
-    t2 = new QThread;
     w2= new Work2;
-    w2->moveToThread(t2);
+    w2->moveToThread(thread);
 
-    connect(t1,&QThread::finished,w1,&QObject::deleteLater);
-    connect(t2,&QThread::finished,w2,&QObject::deleteLater);
+    connect(thread,&QThread::finished,w1,&QObject::deleteLater);
+    connect(thread,&QThread::finished,w2,&QObject::deleteLater);
 //-----------------------必须要有的-------------------------------
 
 
     connect(ui->P1,&QAbstractButton::clicked,w1,&Work1::add);
     connect(ui->P2,&QAbstractButton::clicked,w2,&Work2::add);
 
-    connect(w1,&Work1::sendEnd,t1,&QThread::quit);
-    connect(w2,&Work2::sendEnd,t2,&QThread::quit);
+    connect(w1,&Work1::sendEnd,thread,&QThread::quit);
+    connect(w2,&Work2::sendEnd,thread,&QThread::quit);
 
     connect(ui->pushButton,&QAbstractButton::clicked,[=]{
-        t1->start();
-        t2->start();
+        thread->start();
     });
 
     connect(ui->pushButton_2,&QAbstractButton::clicked,[=]{
-        t1->quit();
-        t2->quit();
+        thread->quit();
     });
 
 
@@ -64,13 +62,13 @@ Widget::~Widget()
 void Widget::updateA(const int &a)
 {
     ui->pB1->setValue(a);
-    qDebug()<<a;
+    qDebug()<<"workA : "<< a;
 }
 
 void Widget::updateB(const int &a)
 {
     ui->pB2->setValue(a);
-    qDebug()<<a;
+    qDebug()<<"workB : "<< a;
 }
 
 
