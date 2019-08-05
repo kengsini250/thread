@@ -32,6 +32,14 @@ Widget::Widget(QWidget *parent) :
 
     connect(ui->pushButton,&QAbstractButton::clicked,[=]{
         thread->start();
+
+        QTimer *timer1 = new QTimer(this);
+        timer1->start(1000);
+        QTimer *timer2 = new QTimer(this);
+        timer2->start(500);
+
+        connect(timer1, &QTimer::timeout, w1,&Work::add);
+        connect(timer2, &QTimer::timeout, w2,&Work::add);
     });
 
     connect(ui->pushButton_2,&QAbstractButton::clicked,[=]{
@@ -40,14 +48,14 @@ Widget::Widget(QWidget *parent) :
 
 
     //ui是主线程，不能和子线程有交互
-    /*
-    connect(w1,&Work1::send,[&](const int& a){
-        //ui->pB1->setValue(a);
+/*
+    connect(w1,&Work::send,[&](const int& a){
+        ui->pB1->setValue(a);
     });
-    connect(w2,&Work2::send,[&](const int& a){
-        //ui->pB2->setValue(a);
+    connect(w2,&Work::send,[&](const int& a){
+        ui->pB2->setValue(a);
     });
-    */
+*/
     //主线程和子线程的交互，要用槽函数
     connect(w1,SIGNAL(send(const int&)),this,SLOT(updateA(const int&)));
     connect(w2,SIGNAL(send(const int&)),this,SLOT(updateB(const int&)));

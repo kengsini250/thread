@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDebug>
+#include <QTimer>
 #include "work.h"
 
 

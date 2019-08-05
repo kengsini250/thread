@@ -14,11 +14,15 @@ class Work : public QObject
 public slots:
     void add()
     {
-        if(a>=100)
-            emit sendEnd();
-        else {
-            a += 10;
-            emit send(a);
+        //while(1)
+        {
+            if(a>=100)
+                emit sendEnd();
+            else {
+                a += 10;
+                emit send(a);
+                //break;
+            }
         }
     }
 
